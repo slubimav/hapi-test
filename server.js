@@ -1,4 +1,7 @@
 import Hapi from "@hapi/hapi"
+import Inert from "@hapi/inert"
+import Vision from "@hapi/vision"
+import HapiSwagger from "hapi-swagger"
 
 const startServer = async () => {
     const server = Hapi.server(
@@ -8,13 +11,31 @@ const startServer = async () => {
         }
     )
 
+    const swaggerOptions = {
+        info: {
+                title: 'Test API Documentation',
+                version: '1.0.0',
+            },
+        };
+
+    await server.register([
+            Inert,
+            Vision,
+            {
+                plugin: HapiSwagger,
+                options: swaggerOptions
+            }
+        ]);
+
     server.route({
         method: 'GET',
         path: '/',
+        options: {
+        tags: ['api'],
         handler: (request, h) => {
 
             return 'Hello World!';
-        }
+        }}
     });
 
     await server.start()
