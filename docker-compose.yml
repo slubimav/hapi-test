@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - internal_network
+    ports:
+      - ${PORT-4000}:${PORT-4000}
+    volumes:
+      - ./logs:/app/logs
+      - ./:/app/
+    restart: unless-stopped
+    environment:
+      NODE_ENV_PROTECTED: ${NODE_ENV_PROTECTED}
+networks:
+  internal_network:
+      driver: bridge

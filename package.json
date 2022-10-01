@@ -1,0 +1,31 @@
+{
+  "name": "hapi-test",
+  "version": "1.0.0",
+  "description": "Hapi server test repository.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "nodemon -L"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slubimav/hapi-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/slubimav/hapi-test/issues"
+  },
+  "homepage": "https://github.com/slubimav/hapi-test#readme",
+  "dependencies": {
+    "@hapi/hapi": "^20.2.2",
+    "@hapi/inert": "7.0.0",
+    "@hapi/vision": "^7.0.0",
+    "dotenv": "16.0.2",
+    "hapi-swagger": "^14.5.5"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.20"
+  }
+}
