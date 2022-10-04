@@ -1,23 +1,33 @@
-version: "3.3"
+version: '3.7'
+
 services:
-  server:
+  api:
+    platform: linux/amd64
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: hapi-test-api
+    volumes:
+      - ./logs:/app/logs
+      - ./:/app/
+    restart: always
     networks:
       - internal_network
     ports:
       - ${PORT-4000}:${PORT-4000}
-    volumes:
-      - ./logs:/app/logs
-      - ./:/app/
-    restart: unless-stopped
+    env_file:
+      - .env.dev
     environment:
-      NODE_ENV_PROTECTED: ${NODE_ENV_PROTECTED}
+      - PORT=4000
+      - NODE_ENV_PROTECTED=${NODE_ENV_PROTECTED-true}
     depends_on:
       - db
+
   db:
     image: docker.io/bitnami/postgresql:13.3.0
+    container_name: hapi-db-api
+    env_file:
+      - .env.dev
     volumes:
       - '.:/app'
     restart: always
@@ -29,6 +39,21 @@ services:
           - POSTGRESQL_USERNAME=postgres12
           - POSTGRESQL_PASSWORD=postgres
           - POSTGRESQL_DATABASE=my_database      
+
+  pg-admin:
+    image: dpage/pgadmin4
+    container_name: hapi-pg-admin
+    restart: always
+    logging:
+      driver: none
+    networks:
+      - internal_network
+    ports:
+      - 5001:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@domain.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+
 networks:
   internal_network:
-      driver: bridge
+    driver: bridge
