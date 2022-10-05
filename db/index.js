@@ -1,14 +1,6 @@
-const { Sequelize } = require('sequelize');
+  const db = require('./models/index');
 
-const sequelize = new Sequelize(
-    'my_database',
-    'postgres12',
-    'postgres', {
-    host: 'db',
-    dialect: 'postgres'
-  });
-
-  module.exports = {
-    Sequelize,
-    sequelize,
-  }
+  db.sequelize
+    .sync({ force: true})
+    .then(() => console.log('Created!'))
+    .catch((error) => console.log(error))

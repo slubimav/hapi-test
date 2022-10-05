@@ -7,6 +7,9 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: hapi-test-api
+    environment:
+      - PORT
+      - NODE_ENV_PROTECTED
     volumes:
       - ./logs:/app/logs
       - ./:/app/
@@ -14,20 +17,13 @@ services:
     networks:
       - internal_network
     ports:
-      - ${PORT-4000}:${PORT-4000}
-    env_file:
-      - .env.dev
-    environment:
-      - PORT=4000
-      - NODE_ENV_PROTECTED=${NODE_ENV_PROTECTED-true}
+      - ${PORT}:${PORT}
     depends_on:
       - db
 
   db:
     image: docker.io/bitnami/postgresql:13.3.0
     container_name: hapi-db-api
-    env_file:
-      - .env.dev
     volumes:
       - '.:/app'
     restart: always

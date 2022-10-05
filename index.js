@@ -1,6 +1,6 @@
 const hapi = require('@hapi/hapi')
 const plugins = require('./plugins/index.js')
-const db = require('./db/index.js')
+const db = require('./db/models/index.js')
 
 const { PORT } = process.env
 

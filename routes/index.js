@@ -1,3 +1,4 @@
 module.exports = [
-  require('./users.js'),
+  require('./messages.js'),
+  require('./points.js'),
   ]
