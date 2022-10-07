@@ -17,6 +17,20 @@ module.exports = [
                 return await pointService.getPoints()
         }}
     },
+    // {
+    //     method: 'POST',
+    //     path: '/points',
+    //     options: {
+    //         validate: {
+    //             payload: joi.object(pointSchema),
+    //           },
+    //         tags: ['api'],
+    //         handler: async (request, h) => {
+    //             const points = request.payload
+    //             console.log('Add Points Act')
+    //         return await pointService.addPoints(points)
+    //     }}
+    // },
     {
         method: 'POST',
         path: '/points',
@@ -28,7 +42,7 @@ module.exports = [
             handler: async (request, h) => {
                 const points = request.payload
                 console.log('Add Points Act')
-            return await pointService.addPoints(points)
+            return await pointService.addPointsAndMessage(points)
         }}
     }
 ]
