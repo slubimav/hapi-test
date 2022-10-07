@@ -1,4 +1,4 @@
-const { getPoints, addPoints } = require('../repositories/points.js');
+const pointService = require('../services/points');
 const joi = require('joi')
 
 const pointSchema = {
@@ -13,8 +13,8 @@ module.exports = [
         path: '/points',
         options: {
             tags: ['api'],
-            handler: (request, h) => {
-                return getPoints();
+            handler: async (request, h) => {
+                return await pointService.getPoints()
         }}
     },
     {
@@ -25,10 +25,10 @@ module.exports = [
                 payload: joi.object(pointSchema),
               },
             tags: ['api'],
-            handler: (request, h) => {
+            handler: async (request, h) => {
                 const points = request.payload
                 console.log('Add Points Act')
-            return addPoints(points);
+            return await pointService.addPoints(points)
         }}
     }
 ]

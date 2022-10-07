@@ -1,4 +1,4 @@
-const { getMessages, createMessage } = require('../repositories/messages.js');
+const messageService = require('../services/messages');
 const joi = require('joi')
 
 const messageSchema = {
@@ -13,8 +13,8 @@ module.exports = [
         path: '/messages',
         options: {
             tags: ['api'],
-            handler: (request, h) => {
-                return getMessages();
+            handler: async (request, h) => {
+                return await messageService.getMeassage()
         }}
     },
     {
@@ -25,9 +25,9 @@ module.exports = [
                 payload: joi.object(messageSchema),
               },
             tags: ['api'],
-            handler: (request, h) => {
+            handler: async (request, h) => {
                 const message = request.payload
-            return createMessage(message);
+            return await messageService.createMessage(message)
         }}
     },
     {
