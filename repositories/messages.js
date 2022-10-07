@@ -1,10 +1,10 @@
-const { message } = require('../db/models/index');
+const db = require('../db/models/index');
 
 module.exports = {
     getMessages: async() => {
-        return await message.findAll()
+        return await db.message.findAll()
     },
-    createMessage: async (messageIn) => {
-        return `Created Messages Data:\n${ await message.create(messageIn) }`
+    createMessage: async (message) => {
+        return `Created Messages Data:\n${ await db.message.create(message) }`
       }
 }
