@@ -1,4 +1,5 @@
 const pointService = require('../services/points');
+const messageService = require('../services/messages');
 const joi = require('joi')
 
 const pointSchema = {
@@ -39,6 +40,9 @@ module.exports = [
                 payload: joi.object(pointSchema),
               },
             tags: ['api'],
+            pre: [{ 
+                method: function (request){ return request.payload.quantity > 100 ? messageService.createMessage({ message: 'Spasibo'}) : null },
+                assign: 'm3'}],
             handler: async (request, h) => {
                 const points = request.payload
                 console.log('Add Points Act')
